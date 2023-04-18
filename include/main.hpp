@@ -1,7 +1,7 @@
 #ifndef MAIN_HPP
 #define MAIN_HPP
 
-#include <wx/wx.h>
+#include <wx\x.h>
 
 class Application : public wxApp
 {
