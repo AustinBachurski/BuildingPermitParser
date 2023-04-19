@@ -39,7 +39,7 @@ public:
     // Methods.
     std::string getCount(const std::string& key) const;
     std::string getValue(const std::string& key) const;
-    void parseSpreadsheet();
+    void parseSpreadsheet(const std::string&& fileName);
 
 private:
     // Maps.
@@ -48,14 +48,18 @@ private:
 
     // Members.
     constexpr int m_firstDataRow;
+    std::string m_index;
     int m_populatedRows;
-    std::string m_targetYear;
+    const std::string m_targetYear;
 
     // Methods
+    bool cellContains(const OpenXLSX::XLWorksheet& sheet, const std::string&& match) const;
+    bool isNewConstruction(const OpenXLSX::XLWorksheet& sheet) const;
     template <typename T>
-    bool isType(const OpenXLSX::XLWorksheet& sheet, const Column& column, const int index) const;
-    void sumValues(const OpenXLSX::XLWorksheet& sheet, const std::string& key, const int index);
+    bool isType(const OpenXLSX::XLWorksheet& sheet, const Column& column) const;
+    void sumValues(const OpenXLSX::XLWorksheet& sheet, const std::string& key);
     void setPopulatedRows(const OpenXLSX::XLWorksheet& sheet);
+    bool valueIsGreaterThan250k(const OpenXLSX::XLWorksheet& sheet) const;
 
 };
 
