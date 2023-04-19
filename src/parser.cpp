@@ -82,7 +82,7 @@ bool Parser::isTypeInt(const OpenXLSX::XLWorksheet& sheet, const std::string& co
 
 void Parser::parseSpreadsheet(const std::string&& fileName)
 {
-    const OpenXLSX::XLDocument spreadsheet(fileName);
+    OpenXLSX::XLDocument spreadsheet(fileName);
 
     if (spreadsheet.isOpen())
     {
@@ -235,6 +235,10 @@ bool Parser::valueIsGreaterThan250k(const OpenXLSX::XLWorksheet& sheet) const
     else if (isTypeFloat(sheet, column.projectValue))
     {
         return sheet.cell(column.projectValue + m_index).value().get<float>() >= 250000;
+    }
+    else
+    {
+        return false;
     }
 }
 
