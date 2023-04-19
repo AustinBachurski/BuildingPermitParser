@@ -2,25 +2,29 @@
 #include <wx/statline.h>
 #include "gui.hpp"
 
-
+// Application Window.
 Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(wxDefaultPosition), wxSize(wxDefaultSize), wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX))
 {
 	wxPanel* panel = new wxPanel(this);
 
-	const std::string previousYear = std::to_string(
+    // We're only interested in permits for the previous calendar year.
+	const std::string lastYear = std::to_string(
 		std::stoi(std::format("{:%Y}", std::chrono::system_clock::now())) - 1);
 
-
-	Parser parse(previousYear);
+	Parser parse(lastYear);
 	parse.parseSpreadsheet(".\\Building Permits.xlx");
 
 	CreateStatusBar();
 
-	wxStaticText* welcome = new wxStaticText(panel, wxID_ANY, ("Building Permits for " + previousYear), wxPoint(0, 10), wxSize(350, -1), wxALIGN_CENTRE_HORIZONTAL);
+	wxStaticText* welcome = new wxStaticText(panel, wxID_ANY, ("Building Permits for " + lastYear), wxPoint(0, 10), wxSize(350, -1), wxALIGN_CENTRE_HORIZONTAL);
 	wxStaticLine* lineOne = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 27), wxSize(350, 5));
 	lineOne->SetBackgroundColour(*wxLIGHT_GREY);
 
+    /********************************************************************************
+     * Display each value with a 'Copy' button to load the data into the clipboard. *
+     ********************************************************************************/
 
+    // Total Quantity of Permits.
 	wxStaticText* totalBuildingPermitsIssued = new wxStaticText(panel, wxID_ANY, "Total Permits Issued: ", wxPoint(25, 50));
 	wxStaticText* totalBuildingPermitsIssuedCOUNT = new wxStaticText(panel, wxID_ANY, parse.getCount(parse.key_TotalBuildingPermits), wxPoint(180, 50));
 	wxButton* totalBuildingPermitsIssuedBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 45));
@@ -28,7 +32,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineTwo = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 75), wxSize(350, 5));
 	lineTwo->SetBackgroundColour(*wxLIGHT_GREY);
 
-
+    // Quantity of Commercial Permits.
 	wxStaticText* commercialPermits = new wxStaticText(panel, wxID_ANY, "Commercial Permits: ", wxPoint(25, 100));
 	wxStaticText* commercialPermitsCOUNT = new wxStaticText(panel, wxID_ANY, parse.getCount(parse.key_CommercialPermits), wxPoint(180, 100));
 	wxButton* commercialPermitsBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 95));
@@ -36,7 +40,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineThree = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 125), wxSize(350, 5));
 	lineThree->SetBackgroundColour(*wxLIGHT_GREY);
 
-
+    // Quantity of Residential Permits.
 	wxStaticText* residentialPermits = new wxStaticText(panel, wxID_ANY, "Residential Permits: ", wxPoint(25, 150));
 	wxStaticText* residentialPermitsCOUNT = new wxStaticText(panel, wxID_ANY, parse.getCount(parse.key_ResidentialPermits), wxPoint(180, 150));
 	wxButton* residentialPermitsBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 145));
@@ -44,7 +48,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineFour = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 175), wxSize(350, 5));
 	lineFour->SetBackgroundColour(*wxLIGHT_GREY);
 
-	
+	// Quantity of Quasi Permits.
 	wxStaticText* quasiPermits = new wxStaticText(panel, wxID_ANY, "Quasi Permits: ", wxPoint(25, 200));
 	wxStaticText* quasiPermitsCOUNT = new wxStaticText(panel, wxID_ANY, parse.getCount(parse.key_QuasiPermits), wxPoint(180, 200));
 	wxButton* quasiPermitsBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 195));
@@ -52,7 +56,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineFive = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 225), wxSize(350, 5));
 	lineFive->SetBackgroundColour(*wxLIGHT_GREY);
 
-
+    // Quantity of Health Care Permits.
 	wxStaticText* healthCare = new wxStaticText(panel, wxID_ANY, "Health Care Permits: ", wxPoint(25, 250));
 	wxStaticText* healthCareCOUNT = new wxStaticText(panel, wxID_ANY, parse.getCount(parse.key_HealthCarePermits), wxPoint(180, 250));
 	wxButton* healthCareBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 245));
@@ -60,7 +64,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineSix = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 275), wxSize(350, 5));
 	lineSix->SetBackgroundColour(*wxLIGHT_GREY);
 
-	
+	// Quantity of Commercial Permits Over $250k.
 	wxStaticText* significantCommercialPermits = new wxStaticText(panel, wxID_ANY, "Significant\nCommercial Permits: ", wxPoint(25, 285));
 	wxStaticText* significantCommercialPermitsCOUNT = new wxStaticText(panel, wxID_ANY, parse.getCount(parse.key_SignificantCommercial), wxPoint(180, 300));
 	wxButton* significantCommercialPermitsBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 295));
@@ -68,7 +72,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineSeven = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 325), wxSize(350, 5));
 	lineSeven->SetBackgroundColour(*wxLIGHT_GREY);
 
-
+    // Total Value of Commercial Permits Over $250k.
 	wxStaticText* significantCommercialValue = new wxStaticText(panel, wxID_ANY, "Value of Significant\nCommercial Permits: ", wxPoint(25, 335));
 	wxStaticText* significantCommercialValueVALUE = new wxStaticText(panel, wxID_ANY, parse.getValue(parse.key_SignificantCommercial), wxPoint(180, 350));
 	wxButton* significantCommercialValueBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 345));
@@ -76,7 +80,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineEight = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 375), wxSize(350, 5));
 	lineEight->SetBackgroundColour(*wxLIGHT_GREY);
 
-	
+	// Quantity of New Residential Units.
 	wxStaticText* newResidentlaiUnits = new wxStaticText(panel, wxID_ANY, "New Residential Units: ", wxPoint(25, 400));
 	wxStaticText* newResidentlaiUnitsCOUNT = new wxStaticText(panel, wxID_ANY, parse.getCount(parse.key_NewResidentialUnits), wxPoint(180, 400));
 	wxButton* newResidentlaiUnitsBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 395));
@@ -84,7 +88,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineNine = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 425), wxSize(350, 5));
 	lineNine->SetBackgroundColour(*wxLIGHT_GREY);
 
-	
+	// Quantity of New Single Family, Townhouse, or Duplex Units.
 	wxStaticText* sfrTHduplexUnits = new wxStaticText(panel, wxID_ANY, "New SFR-TH-Duplex Units: ", wxPoint(25, 450));
 	wxStaticText* sfrTHduplexUnitsCOUNT = new wxStaticText(panel, wxID_ANY, parse.getCount(parse.key_NewSFR_TH_DuplexUnits), wxPoint(180, 450));
 	wxButton* sfrTHduplexUnitsBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 445));
@@ -92,7 +96,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineTen = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 475), wxSize(350, 5));
 	lineTen->SetBackgroundColour(*wxLIGHT_GREY);
 
-	
+	// Quantity of Multifamily Units.
 	wxStaticText* multiFamilyUnits = new wxStaticText(panel, wxID_ANY, "Multi-family Units: ", wxPoint(25, 500));
 	wxStaticText* multiFamilyUnitsCOUNT = new wxStaticText(panel, wxID_ANY, parse.getCount(parse.key_MultiFamilyUnits), wxPoint(180, 500));
 	wxButton* multiFamilyUnitsBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 495));
@@ -100,7 +104,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineEleven = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 525), wxSize(350, 5));
 	lineEleven->SetBackgroundColour(*wxLIGHT_GREY);
 
-
+    // Total Value of All New Residential Units.
 	wxStaticText* residentialValue = new wxStaticText(panel, wxID_ANY, "Value of all\nNew Residential Units: ", wxPoint(25, 535));
 	wxStaticText* residentialValueVALUE = new wxStaticText(panel, wxID_ANY, parse.getValue(parse.key_NewResidentialUnits), wxPoint(180, 550));
 	wxButton* residentialValueBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 545));
@@ -108,7 +112,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineTwelve = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 575), wxSize(350, 5));
 	lineTwelve->SetBackgroundColour(*wxLIGHT_GREY);
 
-
+    // Quantity of Quasi Permits over $250k.
 	wxStaticText* significantQuasi = new wxStaticText(panel, wxID_ANY, "Significant Quasi Permits: ", wxPoint(25, 600));
 	wxStaticText* significantQuasiCOUNT = new wxStaticText(panel, wxID_ANY, parse.getCount(parse.key_SignificantQuasi), wxPoint(180, 600));
 	wxButton* significantQuasiBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 595));
@@ -116,7 +120,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineThirteen = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 625), wxSize(350, 5));
 	lineThirteen->SetBackgroundColour(*wxLIGHT_GREY);
 
-
+    // Total Value of Quasi Permits over $250k.
 	wxStaticText* quasiValue = new wxStaticText(panel, wxID_ANY, "Value of New or\nSignificant Quasi Permits: ", wxPoint(25, 635));
 	wxStaticText* quasiValueVALUE = new wxStaticText(panel, wxID_ANY, parse.getValue(parse.key_SignificantQuasi), wxPoint(180, 650));
 	wxButton* quasiValueBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 645));
@@ -124,7 +128,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineFourteen = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 675), wxSize(350, 5));
 	lineFourteen->SetBackgroundColour(*wxLIGHT_GREY);
 
-
+    // Total Value of All Building Permits.
 	wxStaticText* totalValue = new wxStaticText(panel, wxID_ANY, "Total Value of all\nConstruction Types : ", wxPoint(25, 685));
 	wxStaticText* totalValueVALUE = new wxStaticText(panel, wxID_ANY, parse.getValue(parse.key_TotalValue), wxPoint(180, 700));
 	wxButton* totalValueBUTTON = new wxButton(panel, wxID_ANY, "Copy", wxPoint(250, 695));
@@ -134,6 +138,9 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 
 }
 
+/******************************************************************************************
+ * Load the displayed value for the section into the clipboard and update the status bar. *
+ ******************************************************************************************/
 void Frame::copyTotalPermits(wxCommandEvent& evt, wxStaticText* text)
 {
 	if (wxTheClipboard->Open())

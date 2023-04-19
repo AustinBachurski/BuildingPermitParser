@@ -3,6 +3,7 @@
 
 #include <wx/wx.h>
 
+// wxWidgets boilerplate.
 class Application : public wxApp
 {
 public:

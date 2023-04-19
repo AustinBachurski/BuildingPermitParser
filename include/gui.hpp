@@ -4,13 +4,13 @@
 #include <wx/wx.h>
 #include "parser.hpp"
 
-class Parser;
-
 class Frame : public wxFrame
 {
 public:
+    // Application Window.
 	Frame(const std::string& title);
 private:
+    // Clipboard methods.
 	void copyTotalPermits(wxCommandEvent& evt, wxStaticText* text);
 	void copyCommercialPermits(wxCommandEvent& evt, wxStaticText* text);
 	void copyResidentialPermits(wxCommandEvent& evt, wxStaticText* text);

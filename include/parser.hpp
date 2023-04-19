@@ -9,9 +9,9 @@
 #include <vector>
 #include "OpenXLSX.hpp"
 
-
 struct Columns
-{ // Spreadsheet columns.
+{ 
+    // Spreadsheet columns.
     std::string buildingUse{ "D" };
     std::string classOfWork{ "F" };
     std::string projectValue{ "H" };
@@ -21,7 +21,8 @@ struct Columns
 class Parser
 {
 public:
-    Parser(std::string year);
+    // Constructor/Destructor
+    Parser(std::string lastYear);
     ~Parser();
 
     // Map Keys.
@@ -37,9 +38,11 @@ public:
     const std::string key_SignificantQuasi;
     const std::string key_TotalValue;
 
-    // Methods.
+    // Getters.
     std::string getCount(const std::string& key) const;
     std::string getValue(const std::string& key) const;
+
+    // Parse Method.
     void parseSpreadsheet(const std::string&& fileName);
 
 private:
@@ -51,17 +54,16 @@ private:
     const int m_firstDataRow;
     std::string m_index;
     int m_populatedRows;
-    const std::string m_targetYear;
+    const std::string m_targetSheet;
 
     // Methods
     void addValue(const OpenXLSX::XLWorksheet& sheet, const std::string& key);
-    bool cellContains(const OpenXLSX::XLWorksheet& sheet, const std::string&& match) const;
+    bool cellContains(const OpenXLSX::XLWorksheet& sheet, const std::string&& searchString) const;
     bool isNewConstruction(const OpenXLSX::XLWorksheet& sheet) const;
+    bool isSignificant(const OpenXLSX::XLWorksheet& sheet) const;
     bool isTypeFloat(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const;
     bool isTypeInt(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const;
     void setPopulatedRows(const OpenXLSX::XLWorksheet& sheet);
-    bool valueIsGreaterThan250k(const OpenXLSX::XLWorksheet& sheet) const;
-
 };
 
 #endif
