@@ -74,11 +74,11 @@ bool Parser::isTypeFloat(const OpenXLSX::XLWorksheet& sheet, const std::string& 
 {
     return sheet.cell(column + m_index).value().type() == OpenXLSX::XLValueType::Float;
 }
+
 bool Parser::isTypeInt(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const
 {
     return sheet.cell(column + m_index).value().type() == OpenXLSX::XLValueType::Integer;
 }
-
 
 void Parser::parseSpreadsheet(const std::string&& fileName)
 {
@@ -87,6 +87,8 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
     if (spreadsheet.isOpen())
     {
         OpenXLSX::XLWorksheet sheet = spreadsheet.workbook().worksheet(m_targetYear);
+
+        setPopulatedRows(sheet);
 
         for (int i = m_firstDataRow; i <= m_populatedRows; ++i)
         {
@@ -185,7 +187,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
             // QUASI.
             if (cellContains(sheet, "Quasi"))
             {
-                ++m_counts.at(key_SignificantQuasi);
+                ++m_counts.at(key_QuasiPermits);
                 if (isNewConstruction(sheet))
                 {
                     ++m_counts.at(key_SignificantQuasi);
@@ -234,7 +236,7 @@ bool Parser::valueIsGreaterThan250k(const OpenXLSX::XLWorksheet& sheet) const
     }
     else if (isTypeFloat(sheet, column.projectValue))
     {
-        return sheet.cell(column.projectValue + m_index).value().get<float>() >= 250000;
+        return sheet.cell(column.projectValue + m_index).value().get<float>() >= 250000.0f;
     }
     else
     {
