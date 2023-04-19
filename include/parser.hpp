@@ -47,7 +47,7 @@ private:
     std::unordered_map<std::string, long double> m_totals;
 
     // Members.
-    constexpr int m_firstDataRow;
+    const int m_firstDataRow;
     std::string m_index;
     int m_populatedRows;
     const std::string m_targetYear;
@@ -57,7 +57,7 @@ private:
     bool cellContains(const OpenXLSX::XLWorksheet& sheet, const std::string&& match) const;
     bool isNewConstruction(const OpenXLSX::XLWorksheet& sheet) const;
     template <typename T>
-    bool isType(const OpenXLSX::XLWorksheet& sheet, const Column& column) const;
+    bool isType(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const;
     void setPopulatedRows(const OpenXLSX::XLWorksheet& sheet);
     bool valueIsGreaterThan250k(const OpenXLSX::XLWorksheet& sheet) const;
 

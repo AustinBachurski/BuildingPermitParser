@@ -52,7 +52,7 @@ void Parser::addValue(const OpenXLSX::XLWorksheet& sheet, const std::string& key
 
 bool Parser::cellContains(const OpenXLSX::XLWorksheet& sheet, const std::string&& match) const
 {
-    return sheet.cell(column + m_index).value().get<std::string>() == match;
+    return sheet.cell(column.buildingUse + m_index).value().get<std::string>() == match;
 }
 
 std::string Parser::getCount(const std::string& key) const
@@ -71,7 +71,7 @@ bool Parser::isNewConstruction(const OpenXLSX::XLWorksheet& sheet) const
 }
 
 template <typename T>
-bool Parser::isType(const OpenXLSX::XLWorksheet& sheet, const Column& column) const
+bool Parser::isType(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const
 {
     return sheet.cell(column + m_index).value().type() == T;
 }
@@ -80,7 +80,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
 {
     const OpenXLSX::XLDocument spreadsheet(fileName);
     
-    if (spreadsheet.is_open())
+    if (spreadsheet.isOpen())
     {
         auto sheet = spreadsheet.workbook().worksheet(m_targetYear);
 
@@ -205,7 +205,6 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                 }
             }
         }
-        spreadsheet.close();
     }
 }
 
