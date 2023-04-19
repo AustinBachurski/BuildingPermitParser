@@ -66,6 +66,7 @@ std::string Parser::getCount(const std::string& key) const
 // Getter for the values map.
 std::string Parser::getValue(const std::string& key) const
 {
+    // Building department is not interested in the pennies.
     return std::to_string(std::llroundl(m_totals.at(key)));
 }
 
