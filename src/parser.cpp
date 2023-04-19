@@ -38,6 +38,18 @@ m_populatedRows {},
 m_targetYear { year }
 {}
 
+void Parser::addValue(const OpenXLSX::XLWorksheet& sheet, const std::string& key)
+{
+    if (isType<OpenXLSX::XLValueType::Integer>(sheet, column.projectValue))
+    {
+        m_totals[key] += sheet.cell(column.projectValue + m_index).value().get<int>();
+    }
+    else if (isType<OpenXLSX::XLValueType::Float>(sheet, column.projectValue))
+    {
+        m_totals[key] += sheet.cell(column.projectValue + m_index).value().get<float>();
+    }
+}
+
 bool Parser::cellContains(const OpenXLSX::XLWorksheet& sheet, const std::string&& match) const
 {
     return sheet.cell(column + m_index).value().get<std::string>() == match;
@@ -78,7 +90,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
 
             // TOTALS.
             ++m_counts[key_TotalBuildingPermits];
-            sumValues(sheet, key_TotalValue);
+            addValue(sheet, key_TotalValue);
 
             // COMMERCIAL PERMITS.
             if (cellContains(sheet, "Commercial"))
@@ -88,14 +100,14 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                 if (isNewConstruction(sheet))
                 {
                     ++m_counts[key_SignificantCommercial];
-                    sumValues(sheet, key_SignificantCommercial);
+                    addValue(sheet, key_SignificantCommercial);
                 }
                 else if (isType<OpenXLSX::XLValueType::Integer>(sheet, column.projectValue))
                 {
                     if (valueIsGreaterThan250k(sheet))
                     {
                         ++m_counts[key_SignificantCommercial];
-                        sumValues(sheet, key_SignificantCommercial);
+                        addValue(sheet, key_SignificantCommercial);
                     }
                 }    
                 else if (isType<OpenXLSX::XLValueType::Float>(sheet, column.projectValue))
@@ -103,11 +115,10 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                     if (valueIsGreaterThan250k(sheet))
                     {
                         ++m_counts[key_SignificantCommercial];
-                        sumValues(sheet, key_SignificantCommercial);
+                        addValue(sheet, key_SignificantCommercial);
                     }
                 }                    
             }
-
             // RESIDENTIAL PERMITS.
             if (cellContains(sheet, "Single Family Residence")
                 || cellContains(sheet, "Townhouse")
@@ -119,7 +130,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                 {
                     ++m_counts[key_NewResidentialUnits];
                     ++m_counts[key_NewSFR_TH_DuplexUnits];
-                    sumValues(sheet, key_NewResidentialUnits);
+                    addValue(sheet, key_NewResidentialUnits);
                     if (cellContains(sheet, "Duplex"))
                     {
                         // Duplexes count as TWO units, so we hit it once during the initial "NEW" check above,
@@ -129,19 +140,18 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                     }
                 }
             }
-
+            // APARTMENTS
             if (cellContains(sheet, "Apartments"))
             {
                 ++m_counts[key_ResidentialPermits];
 
-            }
                 if (isType<OpenXLSX::XLValueType::Integer>(sheet, column.numberOfUnits))
                 {
                     m_counts[key_NewResidentialUnits] += sheet.cell(column.numberOfUnits + m_index).value().get<int>();
                     m_counts[key_MultiFamilyUnits] += sheet.cell(column.numberOfUnits + m_index).value().get<int>();
-                    sumValues(sheet, key_NewResidentialUnits);
+                    addValue(sheet, key_NewResidentialUnits);
                 }
-
+            }
             // HEALTHCARE.
             if (cellContains(sheet, "Health Care"))
             {
@@ -149,14 +159,14 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                 if (isNewConstruction(sheet))
                 {
                     ++m_counts[key_SignificantQuasi];
-                    sumValues(sheet, key_SignificantQuasi);
+                    addValue(sheet, key_SignificantQuasi);
                 }
                 else if (isType<OpenXLSX::XLValueType::Integer>(sheet, column.projectValue))
                 {
                     if (valueIsGreaterThan250k(sheet))
                     {
                         ++m_counts[key_SignificantQuasi];
-                        sumValues(sheet, key_SignificantQuasi);    
+                        addValue(sheet, key_SignificantQuasi);    
                     }
                 }
                 else if (isType<OpenXLSX::XLValueType::Float>(sheet, column.projectValue))
@@ -164,11 +174,10 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                     if (valueIsGreaterThan250k(sheet))
                     {
                         ++m_counts[key_SignificantQuasi];
-                        sumValues(sheet, key_SignificantQuasi);
+                        addValue(sheet, key_SignificantQuasi);
                     }
                 }
             }
-
             // QUASI.
             if (cellContains(sheet, "Quasi"))
             {
@@ -176,14 +185,14 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                 if (isNewConstruction(sheet))
                 {
                     ++m_counts[key_SignificantQuasi];
-                    sumValues(sheet, key_SignificantQuasi);
+                    addValue(sheet, key_SignificantQuasi);
                 }
                 else if (isType<OpenXLSX::XLValueType::Integer>(sheet, column.projectValue))
                 {
                     if (valueIsGreaterThan250k(sheet))
                     {
                         ++m_counts[key_SignificantQuasi];
-                        sumValues(sheet, key_SignificantQuasi);
+                        addValue(sheet, key_SignificantQuasi);
                     }
                 }
                 else if (isType<OpenXLSX::XLValueType::Float>(sheet, column.projectValue))
@@ -191,24 +200,12 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                     if (valueIsGreaterThan250k(sheet))
                     {
                         ++m_counts[key_SignificantQuasi];
-                        sumValues(sheet, key_SignificantQuasi);
+                        addValue(sheet, key_SignificantQuasi);
                     }
                 }
             }
         }
         spreadsheet.close();
-    }
-}
-
-void Parser::sumValues(const OpenXLSX::XLWorksheet& sheet, const std::string& key)
-{
-    if (isType<OpenXLSX::XLValueType::Integer>(sheet, column.projectValue))
-    {
-        m_totals[key] += sheet.cell(column.projectValue + m_index).value().get<int>();
-    }
-    else if (isType<OpenXLSX::XLValueType::Float>(sheet, column.projectValue))
-    {
-        m_totals[key] += sheet.cell(column.projectValue + m_index).value().get<float>();
     }
 }
 

@@ -53,28 +53,14 @@ private:
     const std::string m_targetYear;
 
     // Methods
+    void addValue(const OpenXLSX::XLWorksheet& sheet, const std::string& key);
     bool cellContains(const OpenXLSX::XLWorksheet& sheet, const std::string&& match) const;
     bool isNewConstruction(const OpenXLSX::XLWorksheet& sheet) const;
     template <typename T>
     bool isType(const OpenXLSX::XLWorksheet& sheet, const Column& column) const;
-    void sumValues(const OpenXLSX::XLWorksheet& sheet, const std::string& key);
     void setPopulatedRows(const OpenXLSX::XLWorksheet& sheet);
     bool valueIsGreaterThan250k(const OpenXLSX::XLWorksheet& sheet) const;
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif
