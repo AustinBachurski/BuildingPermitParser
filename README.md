@@ -10,7 +10,7 @@ This tool parses out building permit information from a tracking spreadsheet to 
 
 <br>
 
-// Image goes here?
+![Permit Parser](screenshot/screenshot.png)
 
 <br>
 
