@@ -9,18 +9,19 @@
 #include <vector>
 #include "OpenXLSX.hpp"
 
+
 struct Columns
 { // Spreadsheet columns.
-    std::string buildingUse { "D" };
-    std::string classOfWork { "F" };
-    std::string projectValue { "H" };
-    std::string numberOfUnits { "E" };
+    std::string buildingUse{ "D" };
+    std::string classOfWork{ "F" };
+    std::string projectValue{ "H" };
+    std::string numberOfUnits{ "E" };
 };
 
 class Parser
 {
 public:
-    Parser(std::string& year);
+    Parser(std::string year);
     ~Parser();
 
     // Map Keys.
@@ -56,8 +57,8 @@ private:
     void addValue(const OpenXLSX::XLWorksheet& sheet, const std::string& key);
     bool cellContains(const OpenXLSX::XLWorksheet& sheet, const std::string&& match) const;
     bool isNewConstruction(const OpenXLSX::XLWorksheet& sheet) const;
-    template <typename T>
-    bool isType(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const;
+    bool isTypeFloat(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const;
+    bool isTypeInt(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const;
     void setPopulatedRows(const OpenXLSX::XLWorksheet& sheet);
     bool valueIsGreaterThan250k(const OpenXLSX::XLWorksheet& sheet) const;
 

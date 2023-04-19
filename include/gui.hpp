@@ -2,26 +2,29 @@
 #define GUI_HPP
 
 #include <wx/wx.h>
+#include "parser.hpp"
+
+class Parser;
 
 class Frame : public wxFrame
 {
 public:
 	Frame(const std::string& title);
 private:
-	void copyTotalPermits(wxCommandEvent& evt);
-	void copyCommercialPermits(wxCommandEvent& evt);
-	void copyResidentialPermits(wxCommandEvent& evt);
-	void copyQuasiPermits(wxCommandEvent& evt);
-	void copyHealthCare(wxCommandEvent& evt);
-	void copySignificantCommercialCount(wxCommandEvent& evt);
-	void copySignificantCommercialValue(wxCommandEvent& evt);
-	void copyNewResidential(wxCommandEvent& evt);
-	void copySFR_TH_Duplex(wxCommandEvent& evt);
-	void copyMultiFamily(wxCommandEvent& evt);
-	void copyNewResidentialValue(wxCommandEvent& evt);
-	void copySignificantQuasiCount(wxCommandEvent& evt);
-	void copySignificantQuasiValue(wxCommandEvent& evt);
-	void copyTotalValue(wxCommandEvent& evt);
+	void copyTotalPermits(wxCommandEvent& evt, wxStaticText* text);
+	void copyCommercialPermits(wxCommandEvent& evt, wxStaticText* text);
+	void copyResidentialPermits(wxCommandEvent& evt, wxStaticText* text);
+	void copyQuasiPermits(wxCommandEvent& evt, wxStaticText* text);
+	void copyHealthCare(wxCommandEvent& evt, wxStaticText* text);
+	void copySignificantCommercialCount(wxCommandEvent& evt, wxStaticText* text);
+	void copySignificantCommercialValue(wxCommandEvent& evt, wxStaticText* text);
+	void copyNewResidential(wxCommandEvent& evt, wxStaticText* text);
+	void copySFR_TH_Duplex(wxCommandEvent& evt, wxStaticText* text);
+	void copyMultiFamily(wxCommandEvent& evt, wxStaticText* text);
+	void copyNewResidentialValue(wxCommandEvent& evt, wxStaticText* text);
+	void copySignificantQuasiCount(wxCommandEvent& evt, wxStaticText* text);
+	void copySignificantQuasiValue(wxCommandEvent& evt, wxStaticText* text);
+	void copyTotalValue(wxCommandEvent& evt, wxStaticText* text);
 };
 
 #endif
