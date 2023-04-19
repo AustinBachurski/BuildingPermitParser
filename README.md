@@ -4,9 +4,9 @@
 ## Udacity C++ Nanodegree Capstone Project
 
 
-I don't really have an interest in game development and would much rather put effort into building something useful so for the final project in the C++ Nanodegree program I chose to build a project of my choice, a spreadsheet parsing tool to make work easier for a coworker.<br>
+I don't really have an interest in game development and would much rather put effort into building something useful so for the final project in the C++ Nanodegree program I chose to build a project of my choice, a spreadsheet parsing tool to make work easier for my coworkers in the Kalispell Building Department.<br>
 
-This tool parses out building permit information from a tracking spreadsheet to quickly provide totals for year end reports.  The tool automatically loads and parses the sheet for the previous calendar year when ran and displays the information to the user.  A "Copy" button near each displayed value loads the information into the operating system clipboard so it can be easily pasted into a report document with minimal effort required by the user.
+This tool parses out [building permit information](https://maps.ci.kalispell.mt.us/portal/apps/dashboards/c1da5506e31b484289863bc4790f32e9) from a tracking spreadsheet to quickly provide totals for year end reports.  The tool automatically loads and parses the sheet for the previous calendar year when ran and displays the information to the user.  A "Copy" button near each displayed value loads the information into the operating system clipboard so it can be easily pasted into a report document with minimal effort required by the user.
 
 <br>
 
