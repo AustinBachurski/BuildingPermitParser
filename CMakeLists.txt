@@ -18,7 +18,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${wxWidgets_INCLUDE_DIRS})
 
 target_compile_options(${PROJECT_NAME} PRIVATE
                         "-Wall"
-                        "-Wno-unknown-pragmas")
+                        "-Wno-unknown-pragmas"
+                        "-Wno-inline" # OpenXLSX generates a bunch of inline function warnings.
+                        )
 
 set(TEST_SPREADSHEET "Building Permits.xlsx")
 message("-- Copying test spreadsheet to build directory.")
