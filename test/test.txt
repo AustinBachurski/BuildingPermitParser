@@ -1,1 +1,2 @@
-Place the spreadsheet and the parser executable in the same directory.
+Spreadsheet data has been cleaned of any PII and may be used for testing.
+Place the spreadsheet in the same directory as the parser executable.
