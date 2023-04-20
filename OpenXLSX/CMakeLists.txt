@@ -183,7 +183,21 @@ list(APPEND OPENXLSX_DEBUG_FLAGS_GNU
         "-Wduplicated-branches"
         "-Wlogical-op"
         "-Wnull-dereference")
-list(APPEND OPENXLSX_DEBUG_FLAGS_GNUCLANG)
+list(APPEND OPENXLSX_DEBUG_FLAGS_GNUCLANG
+        "-Wall"
+        "-Wextra"
+        "-Wshadow"
+        "-Wnon-virtual-dtor"
+        "-Wold-style-cast"
+        "-Wcast-align"
+        "-Wunused"
+        "-Woverloaded-virtual"
+        "-Wpedantic"
+        "-Wconversion"
+        "-Wdouble-promotion"
+        "-Wformat=2"
+        "-Weffc++"
+        "-Wno-unknown-pragmas")
 list(APPEND OPENXLSX_DEBUG_FLAGS_MSVC
         "/permissive"
         "/W4"
