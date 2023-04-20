@@ -8,8 +8,9 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxPanel* panel = new wxPanel(this);
 
     // We're only interested in permits for the previous calendar year.
-	const std::string lastYear = std::to_string(
-		std::stoi(std::format("{:%Y}", std::chrono::system_clock::now())) - 1);
+    auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    int currentYear = std::gmtime(&now)->tm_year + 1900;
+	const std::string lastYear = std::to_string(currentYear - 1);
 
 	Parser parse(lastYear);
 	parse.parseSpreadsheet(".\\Building Permits.xlx");
