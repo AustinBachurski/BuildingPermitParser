@@ -198,7 +198,8 @@ list(APPEND OPENXLSX_DEBUG_FLAGS_GNUCLANG
         "-Wformat=2"
         "-Weffc++"
         "-Wno-unknown-pragmas"
-        "-Wno-inline")
+        "-Wno-inline"
+        "-Wno-unused-function")
 list(APPEND OPENXLSX_DEBUG_FLAGS_MSVC
         "/permissive"
         "/W4"
