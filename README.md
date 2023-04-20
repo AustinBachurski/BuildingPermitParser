@@ -10,8 +10,6 @@ The tool parses out [building permit information](https://maps.ci.kalispell.mt.u
 
 ![Permit Parser](screenshot/screenshot.png)
 
-<br>
-
 ## Dependencies for Running Locally
 
 ### CMake
@@ -52,7 +50,7 @@ The tool parses out [building permit information](https://maps.ci.kalispell.mt.u
 1. Clone this repo.
 2. Make and cd into a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. A test spreadsheet has been included to demonstrate functionality that will be automatically copied to the build directory.
+4. Ensure the spreadsheet to be parsed is in the same directory as the tool binary.<br>&nbsp;&nbsp;&nbsp;&nbsp;*A test spreadsheet has been included to demonstrate functionality, it will automatically be copied to the build directory during compilation.*
 5. Run: `./BuildingPermitParser`
 
 ## Rubric Points Addressed
@@ -64,4 +62,3 @@ The tool parses out [building permit information](https://maps.ci.kalispell.mt.u
 5. Class constructors utilize member initialization lists: `parser.cpp` lines 3 through 36.
 6. Classes abstract implementation details from their interfaces: `parser.hpp` & `parser.cpp`
 7. The project makes use of references in function declarations: `parser.hpp` lines 42 through 46 and lines 60 through 66.
-
