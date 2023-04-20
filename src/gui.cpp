@@ -139,9 +139,9 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 
 }
 
-/******************************************************************************************
- * Load the displayed value for the section into the clipboard and update the status bar. *
- ******************************************************************************************/
+/***************************************************************************************************************
+ * Load the displayed value for the section into the clipboard and update the status bar on copy button click. *
+ ***************************************************************************************************************/
 void Frame::copyTotalPermits(wxCommandEvent& evt, wxStaticText* text)
 {
 	if (wxTheClipboard->Open())

@@ -38,22 +38,22 @@ Parser::Parser(std::string lastYear) :
 
 Columns column;
 
+// Add the values from the target cell to the totals map at specified key.
 void Parser::addValue(const OpenXLSX::XLWorksheet& sheet, const std::string& key)
 { 
-    // Add the values from the target cell to the totals map at specified key.
-    if (isTypeInt(sheet, column.projectValue))
+    if (isType(sheet, column.projectValue, OpenXLSX::XLValueType::Integer))
     {
         m_totals.at(key) += sheet.cell(column.projectValue + m_index).value().get<int>();
     }
-    else if (isTypeFloat(sheet, column.projectValue))
+    else if (isType(sheet, column.projectValue, OpenXLSX::XLValueType::Float))
     {
         m_totals.at(key) += sheet.cell(column.projectValue + m_index).value().get<float>();
     }
 }
 
+// Return true if the cell contains the exact search string.
 bool Parser::cellContains(const OpenXLSX::XLWorksheet& sheet, const std::string&& searchString) const
 {
-    // Return true if the cell contains the exact search string.
     return sheet.cell(column.buildingUse + m_index).value().get<std::string>() == searchString;
 }
 
@@ -63,22 +63,22 @@ std::string Parser::getCount(const std::string& key) const
     return std::to_string(m_counts.at(key));
 }
 
-// Getter for the values map.
+// Getter for the values map, not interested in the pennies.
+
 std::string Parser::getValue(const std::string& key) const
 {
-    // Building department is not interested in the pennies.
     return std::to_string(std::llroundl(m_totals.at(key)));
 }
 
+// A permit is considered "Significant" if it's value is $250,000 or more.
+// Return true if the value in the cell is 250,000 or more.
 bool Parser::isSignificant(const OpenXLSX::XLWorksheet& sheet) const
 {
-    // A permit is considered "Significant" if it's value is $250,000 or more.
-    // Return true if the value in the cell is 250,000 or more.
-    if (isTypeInt(sheet, column.projectValue))
+    if (isType(sheet, column.projectValue, OpenXLSX::XLValueType::Integer))
     {
         return sheet.cell(column.projectValue + m_index).value().get<int>() >= 250000;
     }
-    else if (isTypeFloat(sheet, column.projectValue))
+    else if (isType(sheet, column.projectValue, OpenXLSX::XLValueType::Float))
     {
         return sheet.cell(column.projectValue + m_index).value().get<float>() >= 250000.0f;
     }
@@ -88,27 +88,20 @@ bool Parser::isSignificant(const OpenXLSX::XLWorksheet& sheet) const
     }
 }
 
+// Return true if the cell contains the string "NEW".
 bool Parser::isNewConstruction(const OpenXLSX::XLWorksheet& sheet) const
 {
-    // Return true if the cell contains the string "NEW".
-    return sheet.cell(column.classOfWork + m_index).value().get<std::string>().find("NEW") != std::string::npos;
+    return sheet.cell(column.classOfWork
+        + m_index).value().get<std::string>().find("NEW") != std::string::npos;
 }
 
-/*************************************************************
- * OpenXLSX is very picky about the type that is extracted   *
- * from the cell. isTypeFloat() and isTypeInteger() check    *
- * the type prior to other methods accessing the cells data. *
- *************************************************************/
-bool Parser::isTypeFloat(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const
+// Return true if the cell contents type matches type argument.
+// OpenXLSX::XLValueType is just an enum so we pass by value.
+bool Parser::isType(const OpenXLSX::XLWorksheet& sheet, 
+                    const std::string& column,
+                    const OpenXLSX::XLValueType type) const
 {
-    // Return true if the cell contains a float.
-    return sheet.cell(column + m_index).value().type() == OpenXLSX::XLValueType::Float;
-}
-
-bool Parser::isTypeInt(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const
-{
-    // Return true if the cell contains an integer.
-    return sheet.cell(column + m_index).value().type() == OpenXLSX::XLValueType::Integer;
+    return sheet.cell(column + m_index).value().type() == type;
 }
 
 /*************************************************************************************
@@ -129,15 +122,13 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
         {
             m_index = std::to_string(i);
 
-            /***************************
-             * Total Counts and Values *
-             ***************************/
+
+            // Total Counts and Values
             ++m_counts.at(key_TotalBuildingPermits);
             addValue(sheet, key_TotalValue);
 
-            /**********************
-             * Commercial Permits *
-             **********************/
+
+            // Commercial Permits 
             if (cellContains(sheet, "Commercial"))
             {
                 ++m_counts.at(key_CommercialPermits);
@@ -147,7 +138,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                     ++m_counts.at(key_SignificantCommercial);
                     addValue(sheet, key_SignificantCommercial);
                 }
-                else if (isTypeInt(sheet, column.projectValue))
+                else if (isType(sheet, column.projectValue, OpenXLSX::XLValueType::Integer))
                 {
                     if (isSignificant(sheet))
                     {
@@ -155,7 +146,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                         addValue(sheet, key_SignificantCommercial);
                     }
                 }
-                else if (isTypeFloat(sheet, column.projectValue))
+                else if (isType(sheet, column.projectValue, OpenXLSX::XLValueType::Float))
                 {
                     if (isSignificant(sheet))
                     {
@@ -164,9 +155,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                     }
                 }
             }
-            /***********************
-             * Residential Permits *
-             ***********************/
+            // Residential Permits
             else if (cellContains(sheet, "Single Family Residence")
                   || cellContains(sheet, "Townhouse")
                   || cellContains(sheet, "Duplex"))
@@ -187,24 +176,21 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                     } 
                 }     
             }
-            /**************
-             * Apartments *
-             **************/
+            // Apartments
             else if (cellContains(sheet, "Apartments"))
             {
                 ++m_counts.at(key_ResidentialPermits);
 
-                if (isTypeInt(sheet, column.numberOfUnits))
+                if (isType(sheet, column.numberOfUnits, OpenXLSX::XLValueType::Integer))
                 {
-                    // The building department wants a unit count for multi-family structures.
+                    // The building department wants a unit count for multi-family structures,
+                    // there's a column in the spreadsheet for that, add it to the counts map.
                     m_counts.at(key_NewResidentialUnits) += sheet.cell(column.numberOfUnits + m_index).value().get<int>();
                     m_counts.at(key_MultiFamilyUnits) += sheet.cell(column.numberOfUnits + m_index).value().get<int>();
                     addValue(sheet, key_NewResidentialUnits);
                 }
             }
-            /**********************
-             * Healthcare Permits *
-             **********************/
+            // Healthcare Permits
             else if (cellContains(sheet, "Health Care"))
             {
                 ++m_counts.at(key_HealthCarePermits);
@@ -213,7 +199,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                     ++m_counts.at(key_SignificantQuasi);
                     addValue(sheet, key_SignificantQuasi);
                 }
-                else if (isTypeInt(sheet, column.projectValue))
+                else if (isType(sheet, column.projectValue, OpenXLSX::XLValueType::Integer))
                 {
                     if (isSignificant(sheet))
                     {
@@ -221,7 +207,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                         addValue(sheet, key_SignificantQuasi);
                     }
                 }
-                else if (isTypeFloat(sheet, column.projectValue))
+                else if (isType(sheet, column.projectValue, OpenXLSX::XLValueType::Float))
                 {
                     if (isSignificant(sheet))
                     {
@@ -230,9 +216,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                     }
                 }
             }
-            /*****************
-             * Quasi Permits *
-             *****************/
+            // Quasi Permits
             else if (cellContains(sheet, "Quasi"))
             {
                 ++m_counts.at(key_QuasiPermits);
@@ -241,7 +225,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                     ++m_counts.at(key_SignificantQuasi);
                     addValue(sheet, key_SignificantQuasi);
                 }
-                else if (isTypeInt(sheet, column.projectValue))
+                else if (isType(sheet, column.projectValue, OpenXLSX::XLValueType::Integer))
                 {
                     if (isSignificant(sheet))
                     {
@@ -249,7 +233,7 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
                         addValue(sheet, key_SignificantQuasi);
                     }
                 }
-                else if (isTypeFloat(sheet, column.projectValue))
+                else if (isType(sheet, column.projectValue, OpenXLSX::XLValueType::Float))
                 {
                     if (isSignificant(sheet))
                     {
@@ -262,9 +246,9 @@ void Parser::parseSpreadsheet(const std::string&& fileName)
     }
 }
 
+// Count the populated cells in the spreadsheet.
 void Parser::setPopulatedRows(const OpenXLSX::XLWorksheet& sheet)
 {
-    // Iterate through spreadsheet rows incrementing the count until an empty cell is found.
     auto range = sheet.range(OpenXLSX::XLCellReference("C1"), OpenXLSX::XLCellReference(OpenXLSX::MAX_ROWS, 2));
 
     for (const auto& cell : range)
