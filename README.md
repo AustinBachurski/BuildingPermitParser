@@ -43,7 +43,7 @@ The tool parses out [building permit information](https://maps.ci.kalispell.mt.u
 
 ### wxWidgets
 &nbsp;&nbsp;&nbsp;&nbsp;*wxWidgets is a C++ library that lets developers create applications for Windows, macOS, Linux and other platforms with a single code base.*
-  * [Installation instructions.](https://wiki.wxwidgets.org/Install)
+  * All OSes - [Installation instructions.](https://wiki.wxwidgets.org/Install)
 
 ## Basic Build Instructions
 
