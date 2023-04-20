@@ -197,7 +197,8 @@ list(APPEND OPENXLSX_DEBUG_FLAGS_GNUCLANG
         "-Wdouble-promotion"
         "-Wformat=2"
         "-Weffc++"
-        "-Wno-unknown-pragmas")
+        "-Wno-unknown-pragmas"
+        "-Wno-unused-function")
 list(APPEND OPENXLSX_DEBUG_FLAGS_MSVC
         "/permissive"
         "/W4"
