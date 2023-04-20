@@ -20,6 +20,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
                         "-Wall"
                         "-Wno-unknown-pragmas"
                         "-Wno-inline" # OpenXLSX generates a bunch of inline function warnings.
+                        "-Wno-unused-function" # OpenXLSX generates a bunch of inline function warnings.
                         )
 
 set(TEST_SPREADSHEET "Building Permits.xlsx")
