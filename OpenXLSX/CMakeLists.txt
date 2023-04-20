@@ -1,7 +1,7 @@
 #=======================================================================================================================
 # Preamble
 #=======================================================================================================================
-cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 set(OPENXLSX_MAJOR_VERSION 0)
 set(OPENXLSX_MINOR_VERSION 3)
 set(OPENXLSX_MICRO_VERSION 1)
@@ -184,19 +184,7 @@ list(APPEND OPENXLSX_DEBUG_FLAGS_GNU
         "-Wlogical-op"
         "-Wnull-dereference")
 list(APPEND OPENXLSX_DEBUG_FLAGS_GNUCLANG
-        "-Wall"
-        "-Wextra"
-        "-Wshadow"
-        "-Wnon-virtual-dtor"
-        "-Wold-style-cast"
-        "-Wcast-align"
-        "-Wunused"
-        "-Woverloaded-virtual"
-        "-Wconversion"
-        "-Wdouble-promotion"
-        "-Wformat=2"
-        "-Weffc++"
-        "-Wno-unknown-pragmas")
+        "-Wall")
 list(APPEND OPENXLSX_DEBUG_FLAGS_MSVC
         "/permissive"
         "/W4"

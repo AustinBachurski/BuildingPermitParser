@@ -1,12 +1,10 @@
+# Udacity C++ Nanodegree Capstone Project
 
-# Building Permit Parse Tool
+## Building Permit Parse Tool
 
-## Udacity C++ Nanodegree Capstone Project
+I don't really have an interest in game development so for the final project in the C++ Nanodegree program I chose to build a project of my choice, a spreadsheet parsing tool to help make work easier for my coworkers in the Kalispell Building Department.<br>
 
-
-I don't really have an interest in game development so for the final project in the C++ Nanodegree program I chose to build a project of my choice, a spreadsheet parsing tool to make work easier for my coworkers in the Kalispell Building Department.<br>
-
-This tool parses out [building permit information](https://maps.ci.kalispell.mt.us/portal/apps/dashboards/c1da5506e31b484289863bc4790f32e9) from a tracking spreadsheet to quickly provide totals for year end reports.  The tool automatically loads and parses the sheet for the previous calendar year when ran and displays the information to the user.  A "Copy" button near each displayed value loads the information into the operating system clipboard so it can be easily pasted into a report document with minimal effort required by the user.
+The tool parses out [building permit information](https://maps.ci.kalispell.mt.us/portal/apps/dashboards/c1da5506e31b484289863bc4790f32e9) from a tracking spreadsheet to quickly provide totals for year end reports.  The tool automatically loads and parses the sheet for the previous calendar year when ran and displays the information to the user.  A "Copy" button near each displayed value loads the information into the operating system clipboard so it can be easily pasted into a report document with minimal effort required by the user.
 
 <br>
 
@@ -14,17 +12,17 @@ This tool parses out [building permit information](https://maps.ci.kalispell.mt.
 
 <br>
 
-## Dependencies for Running Locally // CHECK THE PROJECT WORKSPACE FOR VERSIONS!
+## Dependencies for Running Locally
 
 ### CMake
 
-*CMake is used to control the software compilation process using simple platform and compiler independent configuration files, and generate native makefiles and workspaces that can be used in the compiler environment of your choice.*
+&nbsp;&nbsp;&nbsp;&nbsp;*CMake is used to control the software compilation process using simple platform and compiler independent configuration files, and generate native makefiles and workspaces that can be used in the compiler environment of your choice.*
   * Version 3.15 or higher.
   * All OSes - [Installation instructions.](https://cmake.org/install/)
 
 ### Make
 
-*Make is a tool which controls the generation of executables and other non-source files of a program from the program's source files.*
+&nbsp;&nbsp;&nbsp;&nbsp;*Make is a tool which controls the generation of executables and other non-source files of a program from the program's source files.*
 * Version 4.1 or higher for Linux or Mac, version 3.81 or higher for Windows.
 * Linux - Arch based systems - `sudo pacman -S make` |  Debian based systems - `sudo apt install make`
 * Mac - [Install Xcode command line tools.](https://developer.apple.com/xcode/features/)
@@ -32,28 +30,29 @@ This tool parses out [building permit information](https://maps.ci.kalispell.mt.
 
 ### GCC/G++
 
-*The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Ada, Go, and D, as well as libraries for these languages (libstdc++,...).*
+&nbsp;&nbsp;&nbsp;&nbsp;*The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Ada, Go, and D, as well as libraries for these languages (libstdc++,...).*
 * Version 5.4 or higher.
 * Linux - Arch based systems - `sudo pacman -S gcc` | Debian based systems - `sudo apt install build-essential`
-* Mac - same deal as make - [Install Xcode command line tools.](https://developer.apple.com/xcode/features/)
-* Windows - [Install MinGW](http://www.mingw.org/)
+* Mac - [Install Xcode command line tools.](https://developer.apple.com/xcode/features/).
+* Windows - [Install MinGW](http://www.mingw.org/).
 
-### OpenXLSX >= 0.3.2
+### OpenXLSX
 
-*OpenXLSX is a C++ library for reading, writing, creating and modifying Microsoft Excel® files, with the .xlsx format.*
+&nbsp;&nbsp;&nbsp;&nbsp;*OpenXLSX is a C++ library for reading, writing, creating and modifying Microsoft Excel® files, with the .xlsx format.*
 * Version 0.3.2 or higher.
-* [GitHub Repository](https://github.com/troldal/OpenXLSX)
+* Included in this repo and automatically built when you run `cmake`.
+* See additional details in the included README and the [OpenXLSX GitHub Repository](https://github.com/troldal/OpenXLSX).
 
 ### wxWidgets
-*wxWidgets is a C++ library that lets developers create applications for Windows, macOS, Linux and other platforms with a single code base.*
+&nbsp;&nbsp;&nbsp;&nbsp;*wxWidgets is a C++ library that lets developers create applications for Windows, macOS, Linux and other platforms with a single code base.*
   * [Installation instructions.](https://wiki.wxwidgets.org/Install)
 
 ## Basic Build Instructions
 
 1. Clone this repo.
-2. Make a build directory in the top level directory: `mkdir build && cd build`
+2. Make and cd into a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Move the spreadsheet from the 'test' directory into the build directory: `mv ../test/"Building Permits.xlsx" .`
+4. A test spreadsheet has been included to demonstrate functionality that will be automatically copied to the build directory.
 5. Run: `./BuildingPermitParser`
 
 ## Rubric Points Addressed

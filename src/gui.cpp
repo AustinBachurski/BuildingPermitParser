@@ -35,9 +35,11 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
 	wxStaticLine* lineOne = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 27), wxSize(450, 5));
 	lineOne->SetBackgroundColour(*wxLIGHT_GREY);
 
-    /********************************************************************************
-     * Display each value with a 'Copy' button to load the data into the clipboard. *
-     ********************************************************************************/
+    /*********************************************************************************
+     * Display each value with a 'Copy' button to load the data into the clipboard.  *
+     * Data will be used in a year end report, thousands separation commas as well   *
+     * as cents are not desired, as such they are omitted from the display and copy. *
+     *********************************************************************************/
 
     // Total Quantity of Permits.
 	wxStaticText* totalBuildingPermitsIssued = new wxStaticText(panel, wxID_ANY, "Total Permits Issued: ", wxPoint(25, 50));
