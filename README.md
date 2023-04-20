@@ -17,7 +17,7 @@ The tool parses out [building permit information](https://maps.ci.kalispell.mt.u
 ### CMake
 
 &nbsp;&nbsp;&nbsp;&nbsp;*CMake is used to control the software compilation process using simple platform and compiler independent configuration files, and generate native makefiles and workspaces that can be used in the compiler environment of your choice.*
-  * Version 3.15 or higher.
+  * Version 3.13 or higher.
   * All OSes - [Installation instructions.](https://cmake.org/install/)
 
 ### Make

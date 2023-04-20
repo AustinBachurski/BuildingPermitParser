@@ -31,7 +31,7 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
     }
 
 
-	[[maybe_unused]] wxStaticText* welcome = new wxStaticText(panel, wxID_ANY, ("Building Permits for " + lastYear), wxPoint(215, 10), wxSize(450, -1));
+	[[maybe_unused]] wxStaticText* welcome = new wxStaticText(panel, wxID_ANY, ("Building Permits for " + lastYear), wxPoint(175, 10), wxSize(450, -1));
 	wxStaticLine* lineOne = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 27), wxSize(450, 5));
 	lineOne->SetBackgroundColour(*wxLIGHT_GREY);
 
