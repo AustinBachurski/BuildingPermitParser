@@ -17,3 +17,7 @@ target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES} OpenXLSX::OpenXLSX)
 target_include_directories(${PROJECT_NAME} PRIVATE ${wxWidgets_INCLUDE_DIRS})
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall) 
+
+set(TEST_SPREADSHEET "Building Permits.xlsx")
+message("-- Copying test spreadsheet to build directory.")
+configure_file(${CMAKE_SOURCE_DIR}/test/${TEST_SPREADSHEET} ${CMAKE_CURRENT_BINARY_DIR}/${TEST_SPREADSHEET} COPYONLY)
