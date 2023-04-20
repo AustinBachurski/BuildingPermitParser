@@ -1,4 +1,5 @@
 #include <wx/clipbrd.h>
+#include <wx/popupwin.h>
 #include <wx/statline.h>
 #include "gui.hpp"
 
@@ -12,10 +13,23 @@ Frame::Frame(const std::string& title) : wxFrame(nullptr, wxID_ANY, title, wxPoi
     int currentYear = std::gmtime(&now)->tm_year + 1900;
 	const std::string lastYear = std::to_string(currentYear - 1);
 
-	Parser parse(lastYear);
-	parse.parseSpreadsheet("./Building Permits.xlsx");
-
 	CreateStatusBar();
+
+	Parser parse(lastYear);
+
+    try
+    {
+	    parse.parseSpreadsheet("./Building Permits.xlsx");
+    }
+    catch(...)
+    {
+        wxMessageDialog* noSheet = new wxMessageDialog(NULL,
+            "'Building Permits.xlsx' should be in the same folder as the executable.",
+            "Spreadsheet error.", wxOK | wxICON_ERROR);
+	    noSheet->ShowModal();
+        wxLogStatus("Spreadsheet error, data is invalid!");
+    }
+
 
 	wxStaticText* welcome = new wxStaticText(panel, wxID_ANY, ("Building Permits for " + lastYear), wxPoint(0, 10), wxSize(450, -1), wxALIGN_CENTRE_HORIZONTAL);
 	wxStaticLine* lineOne = new wxStaticLine(panel, wxID_ANY, wxPoint(0, 27), wxSize(450, 5));
