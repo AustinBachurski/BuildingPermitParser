@@ -7,7 +7,7 @@ wxIMPLEMENT_APP(Application); // wxWidgets hides int main() so this is our entry
 bool Application::OnInit()
 {
 	Frame* frame = new Frame("Building Permit Parse Tool");
-	frame->SetClientSize(350, 730);
+	frame->SetClientSize(450, 730);
 	frame->Show();
 	return true;
 }

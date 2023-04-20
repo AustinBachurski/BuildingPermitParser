@@ -192,7 +192,6 @@ list(APPEND OPENXLSX_DEBUG_FLAGS_GNUCLANG
         "-Wcast-align"
         "-Wunused"
         "-Woverloaded-virtual"
-        "-Wpedantic"
         "-Wconversion"
         "-Wdouble-promotion"
         "-Wformat=2"
