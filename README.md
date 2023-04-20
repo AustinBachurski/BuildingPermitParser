@@ -16,34 +16,34 @@ The tool parses out [building permit information](https://maps.ci.kalispell.mt.u
 
 &nbsp;&nbsp;&nbsp;&nbsp;*CMake is used to control the software compilation process using simple platform and compiler independent configuration files, and generate native makefiles and workspaces that can be used in the compiler environment of your choice.*
   * Version 3.13 or higher.
-  * All OSes - [Installation instructions.](https://cmake.org/install/)
+  * All OSes - [Installation instructions](https://cmake.org/install/).
 
 ### Make
 
 &nbsp;&nbsp;&nbsp;&nbsp;*Make is a tool which controls the generation of executables and other non-source files of a program from the program's source files.*
 * Version 4.1 or higher for Linux or Mac, version 3.81 or higher for Windows.
 * Linux - Arch based systems - `sudo pacman -S make` |  Debian based systems - `sudo apt install make`
-* Mac - [Install Xcode command line tools.](https://developer.apple.com/xcode/features/)
-* Windows - [Installation instructions.](http://gnuwin32.sourceforge.net/packages/make.htm)
+* Mac - [Install Xcode command line tools](https://developer.apple.com/xcode/features/).
+* Windows - [Installation instructions](http://gnuwin32.sourceforge.net/packages/make.htm).
 
 ### GCC/G++
 
 &nbsp;&nbsp;&nbsp;&nbsp;*The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Ada, Go, and D, as well as libraries for these languages (libstdc++,...).*
 * Version 5.4 or higher.
 * Linux - Arch based systems - `sudo pacman -S gcc` | Debian based systems - `sudo apt install build-essential`
-* Mac - [Install Xcode command line tools.](https://developer.apple.com/xcode/features/).
+* Mac - [Install Xcode command line tools](https://developer.apple.com/xcode/features/).
 * Windows - [Install MinGW](http://www.mingw.org/).
 
 ### OpenXLSX
 
 &nbsp;&nbsp;&nbsp;&nbsp;*OpenXLSX is a C++ library for reading, writing, creating and modifying Microsoft Excel® files, with the .xlsx format.*
 * Version 0.3.2 or higher.
-* Included in this repo and automatically built when you run `cmake`.
+* Included in this repo and automatically built when you run cmake.
 * See additional details in the included README and the [OpenXLSX GitHub Repository](https://github.com/troldal/OpenXLSX).
 
 ### wxWidgets
 &nbsp;&nbsp;&nbsp;&nbsp;*wxWidgets is a C++ library that lets developers create applications for Windows, macOS, Linux and other platforms with a single code base.*
-  * All OSes - [Installation instructions.](https://wiki.wxwidgets.org/Install)
+  * All OSes - [Installation instructions](https://wiki.wxwidgets.org/Install).
 
 ## Basic Build Instructions
 
