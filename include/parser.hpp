@@ -61,8 +61,9 @@ private:
     bool cellContains(const OpenXLSX::XLWorksheet& sheet, const std::string&& searchString) const;
     bool isNewConstruction(const OpenXLSX::XLWorksheet& sheet) const;
     bool isSignificant(const OpenXLSX::XLWorksheet& sheet) const;
-    bool isTypeFloat(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const;
-    bool isTypeInt(const OpenXLSX::XLWorksheet& sheet, const std::string& column) const;
+    bool isType(const OpenXLSX::XLWorksheet& sheet,
+                const std::string& column,
+                const OpenXLSX::XLValueType type) const;
     void setPopulatedRows(const OpenXLSX::XLWorksheet& sheet);
 };
 
