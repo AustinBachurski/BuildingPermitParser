@@ -234,7 +234,7 @@ void Frame::copyNewResidential(wxCommandEvent& evt, wxStaticText* text)
 	{
 		wxTheClipboard->SetData(new wxTextDataObject(text->GetLabelText()));
 		wxTheClipboard->Close();
-		wxLogStatus("'New Residential Value' copied to clipboard.");
+		wxLogStatus("'New Residential Units' copied to clipboard.");
 	}
 }
 
