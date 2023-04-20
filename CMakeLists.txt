@@ -18,12 +18,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${wxWidgets_INCLUDE_DIRS})
 
 target_compile_options(${PROJECT_NAME} PRIVATE
                         "-Wall"
-                        "-Wno-unknown-pragmas"
-                        "-Wno-unused-variable") 
-# Compiler complains that variables from gui.cpp are unused, but they are required to generate the text...
-# For example:
-# wxStaticText* totalBuildingPermitsIssued = new wxStaticText(panel, wxID_ANY, "Total Permits Issued: ", wxPoint(25, 50));
-
+                        "-Wno-unknown-pragmas")
 
 set(TEST_SPREADSHEET "Building Permits.xlsx")
 message("-- Copying test spreadsheet to build directory.")
