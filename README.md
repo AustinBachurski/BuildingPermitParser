@@ -4,7 +4,7 @@
 
 I don't really have an interest in game development so for the final project in the C++ Nanodegree program I chose to build a project of my choice, a spreadsheet parsing tool to help make work easier for my coworkers in the Kalispell Building Department.<br>
 
-The tool parses out [building permit information](https://maps.ci.kalispell.mt.us/portal/apps/dashboards/c1da5506e31b484289863bc4790f32e9) from a tracking spreadsheet to quickly provide totals for year end reports.  The tool automatically loads and parses the sheet for the previous calendar year when ran and displays the information to the user.  A "Copy" button near each displayed value loads the information into the operating system clipboard so it can be easily pasted into a report document with minimal effort required by the user.
+The tool parses out [building permit information](https://maps.ci.kalispell.mt.us/portal/apps/dashboards/c1da5506e31b484289863bc4790f32e9) from a tracking spreadsheet to quickly provide totals for yearend reports.  The tool automatically loads and parses the sheet for the previous calendar year when run and displays the information to the user.  A "Copy" button near each displayed value loads the information into the operating system clipboard so it can be easily pasted into a report document with minimal effort required by the user.
 
 <br>
 
@@ -36,7 +36,7 @@ The tool parses out [building permit information](https://maps.ci.kalispell.mt.u
 
 ### OpenXLSX
 
-&nbsp;&nbsp;&nbsp;&nbsp;*OpenXLSX is a C++ library for reading, writing, creating and modifying Microsoft Excel® files, with the .xlsx format.*
+&nbsp;&nbsp;&nbsp;&nbsp;*OpenXLSX is a C++ library for reading, writing, creating, and modifying Microsoft Excel® files, with the .xlsx format.*
 * Version 0.3.2 or higher.
 * Included in this repo and automatically built when you run cmake.
 * See additional details in the included README and the [OpenXLSX GitHub Repository](https://github.com/troldal/OpenXLSX).
@@ -57,7 +57,7 @@ The tool parses out [building permit information](https://maps.ci.kalispell.mt.u
 ## Rubric Points Addressed
 
 1. The project demonstrates an understanding of C++ functions and control structures: `parser.cpp` lines 41 through 278.
-2. The project reads data from a file and process the data, or the program writes data to a file: `parser.cpp` lines 119 through 263.
+2. The project reads data from a file and processes the data, or the program writes data to a file: `parser.cpp` lines 119 through 263.
 3. The project uses Object Oriented Programming techniques: `parser.hpp`
 4. Classes use appropriate access specifiers for class members: `parser.hpp` lines 23 & 48.
 5. Class constructors utilize member initialization lists: `parser.cpp` lines 3 through 36.
